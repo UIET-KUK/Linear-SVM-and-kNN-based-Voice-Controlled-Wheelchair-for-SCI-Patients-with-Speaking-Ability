@@ -19,7 +19,6 @@ while(1)
     writePWMDutyCycle(a,'D4',0);
     pause(1);
     else   
-    tic
     recordblocking(recObj, Time);
     x2 = getaudiodata(recObj);
     [b1,a1]=fir1(52,[400 3500]/(Fs/2), 'bandpass');
@@ -52,53 +51,50 @@ while(1)
                 dcl = spd;
                 dirr =1;
                 dirl =0;
-                elseif (cb==3)
-                fprintf('Stop');
-                writePWMDutyCycle(a,'D6',0);
-                writePWMDutyCycle(a,'D4',0);
+                	elseif (cb==3)
+                	fprintf('Stop');
+                	writePWMDutyCycle(a,'D6',0);
+                	writePWMDutyCycle(a,'D4',0);
         		dcr = 0;
-            	dcl = 0;
-                elseif (cb==4)
+            		dcl = 0;
+               		elseif (cb==4)
     			fprintf('back');
         		dcr = 0.20;
-            	dcl = 0.20;
-                dirr = 0;
+            		dcl = 0.20;
+               		dirr = 0;
     			dirl = 1;
         		elseif (cb==5)
-            	fprintf('left');
-                dcr = 0.20;
+            		fprintf('left');
+                	dcr = 0.20;
     			dcl = 0;
         		dirr =1;
-            	dirl =0;
-                elseif (cb==6)
+            		dirl =0;
+                	elseif (cb==6)
     			fprintf('Right');
         		dcr = 0;
-            	dcl = 0.20;
-                dirr =0;
+            		dcl = 0.20;
+                	dirr =0;
     			dirl =0;
         		elseif (cb==7)
-            	fprintf('Fast');
-                    if (spd<0.71) 
-            		spd=spd+0.10; %Incresing duty cycle by 20%.
-                    dcr = spd;
+            		fprintf('Fast');
+                   		if (spd<0.71) 
+            			spd=spd+0.10; %Incresing duty cycle by 10%.
+                    		dcr = spd;
         			dcl = spd;
-                    end
-            	elseif (cb==8)
-                fprintf('Slow');
-                        if (spd>0.21)
-                        spd=spd-0.10; %decresing duty cycle by 20%.
-                        dcr = spd;
-                        dcl = spd;     
-                        end
+                    		end
+            		elseif (cb==8)
+                	fprintf('Slow');
+                       		if (spd>0.21)
+                        	spd=spd-0.10; %decresing duty cycle by 10%.
+                        	dcr = spd;
+                        	dcl = spd;     
+                        	end
                 end
             writePWMDutyCycle(a,'D6',dcr);
             writePWMDutyCycle(a,'D4',dcl);
             writeDigitalPin(a, 'D5', dirr);
             writeDigitalPin(a, 'D3', dirl);
             fprintf('\n')
-%       	dcr
-%       	dcl
-        	toc
             end
         end
     end
